@@ -68,10 +68,6 @@ app.get("/demouser",async (req,res)=>{
    let registerUser = await User.register(fakeUser,"helloworld") ;
    res.send(registerUser) ;
 }) ;
-app.get("/",(req,res)=>{
-     res.send("Hi !  i am root") ;
-});
-
 app.use("/listings",listingRouter) ;
 app.use("/listings/:id/reviews",reviewRouter) ;
 app.use("/",userRouter) ;
