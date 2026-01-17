@@ -22,8 +22,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method")) ;
 app.engine('ejs',ejsMate) ;
 app.use(express.static(path.join(__dirname,"/public"))) ;
-// const mongo_URL ="mongodb://127.0.0.1:27017/wanderlust" ;
-const dbUrl = process.env.ATLASDB_URL  ;
+const mongo_URL ="mongodb://127.0.0.1:27017/wanderlust" ;
+const dbUrl = process.env.ATLASDB_URL || mongo_URL   ;
 main().then(()=>{
     console.log("connected to DB") ;
 })
@@ -80,6 +80,9 @@ app.get("/demouser",async (req,res)=>{
   }) ;
    let registerUser = await User.register(fakeUser,"helloworld") ;
    res.send(registerUser) ;
+}) ;
+app.get("/",(req,res)=>{
+  res.redirect("/listings") ;
 }) ;
 app.use("/listings",listingRouter) ;
 app.use("/listings/:id/reviews",reviewRouter) ;
